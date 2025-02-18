@@ -1,13 +1,26 @@
 import { Router } from 'express'
-import { createSong } from '../controller/admin.controller.js';
+import { createSong , deleteSong, createAlbum, deleteAlbum, checkAdmin } from '../controller/admin.controller.js';
 import { protectRoute, requireAdmin } from '../middleware/auth.middleware.js';
 
 
 const router = Router();
 
-router.post('/songs', protectRoute, requireAdmin, createSong);
+// Auth middleware implementation, every route gets a protective layer
+router.use(protectRoute, requireAdmin);
 
-router.delete('/songs/:id', protectRoute, requireAdmin, deleteSong);
+
+// checking if the user is admin endpoint
+router.get('/check', checkAdmin);
+
+
+//  handle songs endpoints
+router.post('/songs', createSong);
+router.delete('/songs/:id', deleteSong);
+
+
+// handle albums endpoint
+router.post('albums/:id', createAlbum);
+router.delete('albums/:id', deleteAlbum);
 
 
 export default router;

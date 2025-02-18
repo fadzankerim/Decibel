@@ -1,5 +1,7 @@
 import { clerkClient } from "@clerk/express";
 
+
+// checking if the user is logged in by checking the registered users auth id
 export const protectRoute =  async (req,res,next) => { 
 
     if(!req.auth.userId){
@@ -9,6 +11,8 @@ export const protectRoute =  async (req,res,next) => {
     next();
 };
 
+
+// checking if a user is admin by email address
 export const requireAdmin = async(req,res,next) =>{
 
     try{

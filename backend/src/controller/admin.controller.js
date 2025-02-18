@@ -1,9 +1,9 @@
-import { Song } from '../models/song.model'
-import { Album } from '../models/album.model'
+import { Song } from '../models/song.model.js'
+import { Album } from '../models/album.model.js'
 import { firebaseApp, storage } from '../lib/firebase.js'
 import { v4 as uuidv4 } from 'uuid'
 
-//helper function for imagekit uploads
+//helper function for firebase uploads
 const uploadToFirebase = async (file) => {
     try {
         const fileExtension = file.name.split('.').pop();
@@ -75,7 +75,7 @@ export const deleteSong = async (req,res,next) =>{
 
         // if song belongs to an album delete the song from the album (songs array)
         if(song.albumId){
-            await Album.findByIdAndUpdate(aong.albumId,{
+            await Album.findByIdAndUpdate(song.albumId,{
                 $pull: { songs: song._id},
             })
         }
@@ -87,4 +87,53 @@ export const deleteSong = async (req,res,next) =>{
     }catch(error){
         next(error)
     }
+}
+
+
+export const createAlbum = async (req,res,next) => {
+    try{
+        const { title, artist, releaseYear } = req.body;
+
+        const { imageFile } = req.files;
+
+        const imageUrl = await uploadToFirebase(imageFile);
+
+        const album = new Album({
+            title,
+            artist,
+            imageUrl,
+            releaseYear
+        });
+
+        await album.save();
+
+        res.status(200).json(album)
+
+    }catch(error){
+        console.log("Error in createAlbum", error);
+        next(error)
+    }
+
+}
+
+export const deleteAlbum = async (req,res,next) => {
+    try{
+
+        const { id } = req.params
+        
+        await Song.deleteMany({ albumId : id});
+        await Album.findByIdAndDelete(id);
+
+        res.status(200).json({message: "Album deleted successfully"})
+
+    }catch(error){
+        console.log("Error in deleteAlbum ", error);
+        next(error)
+    }
+
+
+}
+
+export const checkAdmin = async (req,res,next) => {
+    res.status(200).json({admin: true})
 }

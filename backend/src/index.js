@@ -22,14 +22,14 @@ const PORT = process.env.PORT || 5005;
 
 const __dirname = path.resolve(); 
 
-app.use(express.json()); // to parse the json data in req.body
-app.use(clerkMiddleware()); // this will add auth to req object => req.auth.userId
+app.use(express.json());  // to parse the json data in req.body
+app.use(clerkMiddleware());  // this will add auth to req object => req.auth.userId
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: path.join(__dirname, 'tmp'),
     createParentPath: true,
     limits:{
-        fileSize: 10 * 1024 * 1024 //10 MB max file size 
+        fileSize: 10 * 1024 * 1024  //10 MB max file size 
     },
 }))
 
@@ -56,3 +56,5 @@ app.listen(PORT, ()=>{
     connectDB();
 })
 
+
+// todo: socket.io implementation 
