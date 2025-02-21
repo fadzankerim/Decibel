@@ -20,7 +20,7 @@ export const requireAdmin = async(req,res,next) =>{
         const isAdmin = process.env.ADMIN_EMAIL === currentUser.primaryEmailAddress.emailAddress;
 
         if(!isAdmin){
-            return res.status(403).json({message: "Unauthorized - aces denied"})
+            return res.status(403).json({message: "Unauthorized - acces denied"})
         }
 
         next();

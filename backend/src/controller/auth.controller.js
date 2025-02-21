@@ -20,7 +20,7 @@ export const authCallback = async (req, res, next) => {
                 })
             }
     
-            res.send(200).json({success:true})
+            res.status(200).json({success:true})
         }catch(error){
             console.log("error in auth callback ", error);
             next(error)

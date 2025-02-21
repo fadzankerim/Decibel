@@ -3,7 +3,7 @@ import { User } from "../models/user.model.js";
 import { Album } from "../models/album.model.js";
 
 
-export const getStarts = async (req,res,next) => {
+export const getStats = async (req,res,next) => {
     try{
         const [totalSongs, totalUsers, totalAlbums, uniqueArtists] = await Promise.all([
             Song.countDocuments(), 
