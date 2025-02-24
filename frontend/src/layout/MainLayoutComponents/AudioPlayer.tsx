@@ -4,7 +4,7 @@ import { usePlayerStore } from "@/stores/usePlayerStore";
 const AudioPlayer = () => {
 
     const audioRef = useRef<HTMLAudioElement>(null);
-    const prevSongRef = useRef<String | null>(null);
+    const prevSongRef = useRef<string | null>(null);
 
     const { currentSong, isPlaying, playNext } = usePlayerStore();
 
