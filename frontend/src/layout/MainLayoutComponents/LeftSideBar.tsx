@@ -2,15 +2,28 @@ import PlaylistSkeleton from "@/components/PlaylistSkeleton"
 import { buttonVariants } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
+import { useMusicStore } from "@/stores/useMusicStore"
 import { SignedIn } from "@clerk/clerk-react"
 import { HomeIcon, Library, MessageCircle } from "lucide-react"
+import { useEffect } from "react"
 import { Link } from "react-router-dom"
 
 const LeftSideBar = () => {
 
 
 
-    const isLoading = true;
+
+
+    // data fetching logic -> zustand
+
+
+    const { songs, albums, fetchAlbums, isLoading } = useMusicStore();
+
+    useEffect(() => {
+        fetchAlbums();
+    }, [fetchAlbums])
+
+    console.log({albums});
 
 
   return (
@@ -57,7 +70,23 @@ const LeftSideBar = () => {
                     <div className="space-y-2">
                         {isLoading? (
                             <PlaylistSkeleton />
-                        ) : (<></>)}
+                        ) : (
+                            albums?.map((album: any) => (
+                                <Link to={`/albums/${album._id}`} key={album._id}
+                                className="p-2 rounded-md hover:bg-zinc-800 flex items-center gap-3 cursor-pointer">
+                                    <img src={album.imageUrl} alt="playlist img" className="size-12 rounded-md flex-shrink-0 object-cover"/>
+
+                                    <div className="flex-1 min-w-0 hidden md:block">
+                                        <p className="font-medium truncate">
+                                            {album.title}
+                                        </p>
+                                        <p className="text-sm text-zinc-400 truncate">
+                                            Album ‣ {album.artist}
+                                        </p>
+                                    </div>
+                                </Link>
+                            )
+                        ))}
                     </div>
                 </ScrollArea>
             </div>

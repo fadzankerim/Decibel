@@ -47,7 +47,7 @@ export const getFeaturedSongs = async (req,res,next) =>{
 
 export const getMadeForYou = async (req,res,next) =>{
     try{
-        // fetching 6 random songs using mongoDB aggregation pipeline
+        // fetching 4 random songs using mongoDB aggregation pipeline
         const songs = await Song.aggregate([
             {
                 $sample:{ size: 4 }
@@ -65,7 +65,7 @@ export const getMadeForYou = async (req,res,next) =>{
 
 export const getTrendingSongs = async (req,res,next) =>{
     try{
-        // fetching 6 random songs using mongoDB aggregation pipeline
+        // fetching 4 random songs using mongoDB aggregation pipeline
         const songs = await Song.aggregate([
             {
                 $sample:{ size: 4 }
