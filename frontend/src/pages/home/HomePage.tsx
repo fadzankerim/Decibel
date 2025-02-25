@@ -29,7 +29,7 @@ const HomePage = () => {
       
       <main className='rounded-md h-full overflow-hidden bg-gradient-to-b from-zinc-800 to-zinc-900'>
         <Topbar />
-        <ScrollArea className='h-[calc(100vh-100px)]'>
+        <ScrollArea className='h-[calc(100vh-120px)]'>
           <div className='p-4 sm:p-6'>
             <h1 className='text-2xl sm:text-3xl font-bold mb-6'>Good afternoon!</h1>
             <FeaturedSection/>

@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { Song } from "@/types";
-import { useChatStore } from "./useChatStore";
 
 
 interface PlayerStore{
@@ -85,21 +84,21 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     },
 
     playPrevious: () => {
-         const { currentIndex, queue } = get();
-            const prevIndex = currentIndex - 1;
+        const { currentIndex, queue } = get();
+        const prevIndex = currentIndex - 1;
 
-            //there is a prev song
-            if(prevIndex >= 0){
-                const prevSong = queue[prevIndex];
-                set({
-                    currentIndex: prevIndex,
-                    currentSong: prevSong,
-                    isPlaying: true
-                })
-            }else{
-                // no prev song
-                set({isPlaying: false})
-            }
+        //there is a prev song
+        if(prevIndex >= 0){
+            const prevSong = queue[prevIndex];
+            set({
+                currentIndex: prevIndex,
+                currentSong: prevSong,
+                isPlaying: true
+            })
+        }else{
+            // no prev song
+            set({isPlaying: false})
+        }
     }
 
 })) 
