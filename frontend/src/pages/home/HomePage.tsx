@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import FeaturedSection from './components/FeaturedSection';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import SectionGrid from './components/SectionGrid';
+import { usePlayerStore } from '@/stores/usePlayerStore';
 
 const HomePage = () => {
 
@@ -17,13 +18,21 @@ const HomePage = () => {
     isLoading 
   } = useMusicStore();
 
+  const { initializeQueue } = usePlayerStore();
+
   useEffect(()=>{
     fetchFeaturedSongs();
     fetchTrendingSongs();
     fetchMadeForYouSongs();
   },[fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs]);
 
-  console.log({madeForYouSongs, featuredSongs, trendingSongs, isLoading});
+  useEffect(() => {
+      if(madeForYouSongs.length > 0 && featuredSongs.length > 0 && trendingSongs.length > 0){
+        const allSongs = [...madeForYouSongs, ...featuredSongs,...trendingSongs]
+        initializeQueue(allSongs)
+      }
+  },[initializeQueue,madeForYouSongs,featuredSongs,trendingSongs])
+
 
   return(
       

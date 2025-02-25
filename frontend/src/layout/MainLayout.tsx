@@ -4,15 +4,27 @@ import LeftSideBar from "./MainLayoutComponents/LeftSideBar";
 import FriendsActivity from "./MainLayoutComponents/FriendsActivity";
 import AudioPlayer from "./MainLayoutComponents/AudioPlayer";
 import PlayBackControlls from "./MainLayoutComponents/PlayBackControlls";
+import { useEffect, useState } from "react";
 
 
 const MainLayout = () => {
 
-    const isMobile = false;
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkIsMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkIsMobile();
+        window.addEventListener("resize", checkIsMobile);
+        return () => window.removeEventListener("resize", checkIsMobile)
+    },[])
 
   return (
-    <>
-        <div className="h-screen bg-black text-white flex-col">
+    <>   
+     {/*edited the height of the page below here  so the playback controls fit to the page*/}
+        <div className={`${isMobile?"h-[calc(100vh-80px)]":"h-[calc(100vh-100px)]"} bg-black text-white flex-col`}>
             <ResizablePanelGroup direction="horizontal" className="flex-1 flex h-full overflow-hidden p-2">
 
                 <AudioPlayer />
@@ -31,14 +43,20 @@ const MainLayout = () => {
                     <Outlet />
                 </ResizablePanel>
 
-                <ResizableHandle className="w-2 bg-black rounded-lg transition-colors"/>
+                {!isMobile && (
+                    <>
+                        <ResizableHandle className="w-2 bg-black rounded-lg transition-colors"/>
 
 
-                {/* RIGHT SIDEBAR */}
+                        {/* RIGHT SIDEBAR */}
 
-                <ResizablePanel defaultSize={20} minSize={0} maxSize={25} collapsedSize={0}>
-                    <FriendsActivity />
-                </ResizablePanel>
+                        <ResizablePanel defaultSize={20} minSize={0} maxSize={25} collapsedSize={0}>
+                            <FriendsActivity />
+                        </ResizablePanel>
+                    </>
+                )}
+
+                
 
             </ResizablePanelGroup>
 
