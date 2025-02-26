@@ -31,7 +31,7 @@ export const getStats = async (req,res,next) => {
             totalSongs,
             totalUsers,
             totalAlbums,
-            uniqueArtists: uniqueArtists.length[0]?.count || 0
+            uniqueArtists: uniqueArtists[0]?.count || 0
         })        
 
     }catch(error){
