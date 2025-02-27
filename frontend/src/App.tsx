@@ -7,12 +7,13 @@ import MainLayout from "./layout/MainLayout";
 import ChatPage from "./pages/chat-page/ChatPage";
 import AlbumPage from "./pages/album-page/AlbumPage";
 import AdminPage from "./pages/admin-page/AdminPage";
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
   
   return( 
-    
+    <>
       <Routes>
         <Route path="/sso-callback" element={<AuthenticateWithRedirectCallback 
         signInForceRedirectUrl={"/auth-callback"}/>} />
@@ -24,8 +25,10 @@ function App() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/albums/:albumId" element={<AlbumPage />} />
         </Route>
-
       </Routes>
+      <Toaster />
+    </>
+      
   ) 
 }
 

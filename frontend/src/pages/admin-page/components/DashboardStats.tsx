@@ -42,10 +42,10 @@ const DashboardStats = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      {statsData.map((stat) => (
-        <div className="">
+      {statsData.map((stat, index) => (
+        <div>
           <StatsCard 
-          key={stat.label}
+          key={index || stat.label}
           icon={stat.icon}
           label={stat.label}
           value={stat.value}

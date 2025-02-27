@@ -19,6 +19,7 @@ const AudioPlayer = () => {
 
     useEffect(() => {
         const audio = audioRef.current;
+        console.log('Audio URL:', currentSong?.audioUrl)
 
         const handleEnded = () => {
             playNext();
@@ -42,7 +43,13 @@ const AudioPlayer = () => {
         const isSongChanged = prevSongRef.current !== currentSong?.audioUrl;
 
         if(isSongChanged){
-            audio.src = currentSong?.audioUrl; 
+            audio.innerHTML = '';
+            const source = document.createElement('source');
+            source.src = currentSong.audioUrl
+            source.type = 'audio/mpeg';
+            audio.appendChild(source)
+            // audio.src = currentSong?.audioUrl;
+            audio.load(); 
             //reset the playback position
             audio.currentTime = 0;
 
@@ -56,7 +63,7 @@ const AudioPlayer = () => {
 
     },[isPlaying, currentSong]);
 
-  return <audio ref={audioRef}/>
+  return <audio ref={audioRef} />
 }
 
 export default AudioPlayer

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -31,4 +31,4 @@ try {
 
 const storage = getStorage(firebaseApp); // Pass the app instance to getStorage
 
-export { firebaseApp, storage }; // Export both the app and the storage instance
+export { firebaseApp, storage, ref, uploadBytes, getDownloadURL }; // Export both the app and the storage instance

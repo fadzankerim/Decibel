@@ -4,6 +4,30 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a202c;
+  /* Tailwind bg-gray-900 */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #31363f;
+  /* Tailwind bg-gray-700 */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2d3748;
+  /* Tailwind bg-gray-800 */
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -1,30 +1,39 @@
 import { Song } from '../models/song.model.js'
 import { Album } from '../models/album.model.js'
-import { firebaseApp, storage } from '../lib/firebase.js'
+import { firebaseApp, storage, ref, getDownloadURL, uploadBytes } from '../lib/firebase.js'
 import { v4 as uuidv4 } from 'uuid'
+import * as fs from 'fs'
 
 //helper function for firebase uploads
-const uploadToFirebase = async (file) => {
-    try {
-        const fileExtension = file.name.split('.').pop();
-        const uniqueFilename = `${uuidv4()}.${fileExtension}`; // Use uuid for unique names
-        const fileRef = storage.ref().child(uniqueFilename); // Reference to the file location in Firebase Storage
+const readFile = async (filePath) => {
+  try {
+    const fileData = await fs.promises.readFile(filePath);
+    return fileData;
+  } catch (error) {
+    console.error(`Error reading file: ${error}`);
+    throw error;
+  }
+};
 
-        const metadata = {
-            contentType: file.mimetype, // Set the correct content type (crucial!)
-        };
+const uploadToFirebase = async (file, path) => {
+  try {
+    const fileExtension = file.name.split('.').pop();
+    const uniqueFilename = `${uuidv4()}.${fileExtension}`;
+    const fileRef = ref(storage, `${path}/${uniqueFilename}`);
 
-        // Use putFile for uploading from a local file path (tempFilePath)
-        const snapshot = await fileRef.putFile(file.tempFilePath, metadata);
-        const downloadURL = await snapshot.ref.getDownloadURL(); // Get the download URL
+    const metadata = {
+      contentType: file.mimetype,
+    };
 
-        return downloadURL;
-    } catch (error) {
-        console.error("Error uploading to Firebase:", error);
-        throw error; // Re-throw the error for proper handling
-    }
-}
-
+    const fileData = await readFile(file.tempFilePath);
+    const snapshot = await uploadBytes(fileRef, fileData, metadata);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
+  } catch (error) {
+    console.error(`Error uploading file: ${error}`);
+    throw error;
+  }
+};
 
 
 export const createSong = async (req, res, next) => {
@@ -37,9 +46,11 @@ export const createSong = async (req, res, next) => {
         const audioFile = req.files.audioFile
         const imageFile = req.files.imageFile
 
+        console.log("Audio file: ", audioFile);
+        console.log("Image FIle: ", imageFile);
 
-        const audioUrl = await uploadToFirebase(audioFile);
-        const imageUrl = await uploadToFirebase(imageFile);
+        const audioUrl = await uploadToFirebase(audioFile, "songs");
+        const imageUrl = await uploadToFirebase(imageFile, "images");
 
         const song = new Song({
             title,

@@ -26,7 +26,7 @@ const AdminPage = () => {
     if(!isAdmin && !isLoading) return <div>Unauthorized</div>
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black etxt-zinc-100 p-8">
+      <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-zinc-100 p-8">
         <Header/>
         <DashboardStats />
 

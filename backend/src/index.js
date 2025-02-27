@@ -30,6 +30,7 @@ app.use(cors({
 
 app.use(express.json());  // to parse the json data in req.body
 app.use(clerkMiddleware());  // this will add auth to req object => req.auth.userId
+
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: path.join(__dirname, 'tmp'),
