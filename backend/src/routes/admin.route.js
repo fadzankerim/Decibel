@@ -19,8 +19,8 @@ router.delete('/songs/:id', deleteSong);
 
 
 // handle albums endpoint
-router.post('albums/:id', createAlbum);
-router.delete('albums/:id', deleteAlbum);
+router.post('/albums', createAlbum);
+router.delete('/albums/:id', deleteAlbum);
 
 
 export default router;

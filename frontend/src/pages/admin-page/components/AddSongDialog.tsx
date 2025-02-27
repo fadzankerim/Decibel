@@ -87,7 +87,9 @@ const AddSongDialog = () => {
   return (
     <Dialog open={songDialogOpen} onOpenChange={setSongDialogOpen}>
         <DialogTrigger asChild>
-            <Button className="bg-zinc-700 hover:bg-zinc-600 text-white cursor-pointer rounded-lg transition-colors">
+            <Button variant={'ghost'}
+            size={'icon'} 
+            className="bg-zinc-600/50 border-zinc-700/50 text-white cursor-pointer">
                 <Plus className="size-4"/>
             </Button>
         </DialogTrigger>

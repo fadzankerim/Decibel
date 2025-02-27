@@ -4,6 +4,8 @@ import { firebaseApp, storage, ref, getDownloadURL, uploadBytes } from '../lib/f
 import { v4 as uuidv4 } from 'uuid'
 import * as fs from 'fs'
 
+
+
 //helper function for firebase uploads
 const readFile = async (filePath) => {
   try {
@@ -107,7 +109,7 @@ export const createAlbum = async (req,res,next) => {
 
         const { imageFile } = req.files;
 
-        const imageUrl = await uploadToFirebase(imageFile);
+        const imageUrl = await uploadToFirebase(imageFile, "images");
 
         const album = new Album({
             title,
