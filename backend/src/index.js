@@ -13,6 +13,8 @@ import authRoutes from './routes/auth.route.js'
 import songRoutes from './routes/song.route.js'
 import albumRoutes from './routes/album.route.js'
 import statRoutes from './routes/stat.route.js'
+import { createServer } from 'http';
+import { initializeSocket } from './lib/socket.js';
 
 
 
@@ -22,6 +24,10 @@ const app = express();
 const PORT = process.env.PORT || 5005;
 
 const __dirname = path.resolve();
+
+
+const httpServer = createServer(app);
+initializeSocket(httpServer);
 
 app.use(cors({
     origin:'http://localhost:3000',
@@ -58,10 +64,9 @@ app.use((err,req,res,next)=>{
 
 
 
-app.listen(PORT, ()=>{
+httpServer.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`);
     connectDB();
 })
 
 
-// todo: socket.io implementation 
