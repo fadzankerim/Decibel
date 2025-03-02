@@ -7,7 +7,7 @@ import { User } from "@/types";
 
 interface ChatStore {
     selectedUser: User | null;
-    users: any[];
+    users: User[];
     isLoading: boolean;
     error: string | null;
     socket: any;
@@ -34,7 +34,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     users: [],
     isLoading: false,
     error: null,
-    socket: null,
+    socket: socket,
     isConnected: false,
     onlineUsers: new Set(),
     userActivities: new Map(),
@@ -70,7 +70,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
                 set({userActivities: new Map(activities)});
             })
 
-            socket.on('user_online', (userId: string) => {
+            socket.on('users_online', (userId: string) => {
                 set((state) => ({
                     onlineUsers: new Set([...state.onlineUsers, userId])
                 }))

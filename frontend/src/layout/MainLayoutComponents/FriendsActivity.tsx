@@ -1,6 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useChatStore } from '@/stores/useChatStore'
+import { useMusicStore } from '@/stores/useMusicStore';
+import { usePlayerStore } from '@/stores/usePlayerStore';
 import { useUser } from '@clerk/clerk-react';
 import { HeadphonesIcon, Music4Icon, Users } from 'lucide-react'
 import { useEffect } from 'react';
@@ -9,13 +11,15 @@ const FriendsActivity = () => {
 
   const {users, fetchUsers} = useChatStore();
 
+  const { isPlaying } = usePlayerStore();
+
   const { user } = useUser();
 
   useEffect(() => {
     if(user) fetchUsers();
   },[fetchUsers, user]);
 
-  const isPlaying = true;
+
     
   return (
     <div className='h-full bg-zinc-900 rounded-lg flex flex-col'>
