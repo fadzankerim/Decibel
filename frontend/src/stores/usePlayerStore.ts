@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { Song } from "@/types";
 import { useChatStore } from "./useChatStore";
-import { use } from "react";
 
 
 interface PlayerStore{
@@ -43,7 +42,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         
         if(socket.auth){
             socket.emit("update_activity", 
-                {userId: socket.auth.userId, activity: `Listening to ${song.title} + ${song.artist}`}
+                {userId: socket.auth.userId, activity: `Listening to ${song.title} by ${song.artist}`}
             );
         }
 
@@ -64,7 +63,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         
         if(socket.auth){
             socket.emit("update_activity", 
-                {userId: socket.auth.userId, activity: `Listening to ${song.title} + ${song.artist}`}
+                {userId: socket.auth.userId, activity: `Listening to ${song.title} by ${song.artist}`}
             );
         }
 
@@ -85,7 +84,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         if(socket.auth){
             socket.emit("update_activity",{
                 userId: socket.auth.userId,
-                activity: willStartPlaying && currentSong? `Listening to ${currentSong?.title} + ${currentSong?.artist}` : "Idle"
+                activity: willStartPlaying && currentSong? `Listening to ${currentSong?.title} by ${currentSong?.artist}` : "Idle"
             })
         }
 
@@ -109,7 +108,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         
             if(socket.auth){
                 socket.emit("update_activity", 
-                    {userId: socket.auth.userId, activity: `Listening to ${nextSong.title} + ${nextSong.artist}`}
+                    {userId: socket.auth.userId, activity: `Listening to ${nextSong.title} by ${nextSong.artist}`}
                 );
             }
             set({
@@ -137,7 +136,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
         
         if(socket.auth){
             socket.emit("update_activity", 
-                {userId: socket.auth.userId, activity: `Listening to ${prevSong.title} + ${prevSong.artist}`}
+                {userId: socket.auth.userId, activity: `Listening to ${prevSong.title} by ${prevSong.artist}`}
             );
         }
             set({

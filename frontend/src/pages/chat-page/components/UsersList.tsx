@@ -7,12 +7,6 @@ const UsersList = () => {
 
   const { isLoading, users, selectedUser, setSelectedUser, onlineUsers } = useChatStore();
 
-  const handleOpenChat = () => {
-
-  } //handleOpenChat finish!
-
-
-
   return (
     <div className="border-r border-zinc-800">
         <div className="flex flex-col h-full">

@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "seed:songs":"node src/seeds/songs.js",
+    "seed:songs": "node src/seeds/songs.js",
     "seed:db": "node src/seeds/albums.js"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "form-data": "^4.0.2",
     "mongoose": "^8.10.1",
     "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {

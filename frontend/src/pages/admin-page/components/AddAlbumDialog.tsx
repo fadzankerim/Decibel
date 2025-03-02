@@ -69,7 +69,7 @@ const AddAlbumDialog = () => {
     }
 
   return (
-    <Dialog>
+    <Dialog open={albumDialogOpen} onOpenChange={setAlbumDialogOpen}>
         <DialogTrigger>
           <Button variant={'ghost'}
           size={'icon'}

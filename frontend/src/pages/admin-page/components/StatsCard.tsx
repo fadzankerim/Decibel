@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Icon } from "lucide-react";
 
 
 type StatsCardProps = {

@@ -17,7 +17,7 @@ const LeftSideBar = () => {
     // data fetching logic -> zustand
 
 
-    const { songs, albums, fetchAlbums, isLoading } = useMusicStore();
+    const {  albums, fetchAlbums, isLoading } = useMusicStore();
 
     useEffect(() => {
         fetchAlbums();
